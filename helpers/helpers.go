@@ -3,6 +3,7 @@ package helpers
 import (
 	"WebApp/interfaces"
 	"regexp"
+	"os"
 
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/driver/postgres"
@@ -23,7 +24,8 @@ func HashAndSalt(pass []byte) string {
 }
 
 func ConnectDB() *gorm.DB {
-	dsn := "user=postgres password=DBpassword99 dbname=WebApp sslmode=disable"
+	pass := os.Getenv("PostgresPassword")
+	dsn := "user=postgres password=" + pass + " dbname=WebApp sslmode=disable"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	HandleErr(err)
 	return db
