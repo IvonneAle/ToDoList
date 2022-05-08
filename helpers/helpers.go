@@ -2,12 +2,15 @@ package helpers
 
 import (
 	"WebApp/interfaces"
-	"regexp"
 	"os"
+	"regexp"
+
+	//"github.com/gorilla/schema"
 
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/schema"
 )
 
 func HandleErr(err error) {
@@ -25,8 +28,12 @@ func HashAndSalt(pass []byte) string {
 
 func ConnectDB() *gorm.DB {
 	pass := os.Getenv("PostgresPassword")
-	dsn := "user=postgres password=" + pass + " dbname=WebApp sslmode=disable"
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	dsn := "user=postgres password=" + pass + " dbname=to_do_list_unique sslmode=disable"
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+		NamingStrategy: schema.NamingStrategy{
+			TablePrefix:   "to_do_list.", // schema name
+			SingularTable: false,
+		}})
 	HandleErr(err)
 	return db
 }
