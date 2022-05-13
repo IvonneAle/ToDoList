@@ -1,11 +1,11 @@
-module WebApp
+module ToDoList
 
 go 1.18
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // direct
 	github.com/gorilla/mux v1.8.0 // direct
-	golang.org/x/crypto v0.0.0-20220427172511-eb4f295cb31f // direct
+	golang.org/x/crypto v0.0.0-20220511200225-c6db032c6c88 // direct
 	gorm.io/driver/mysql v1.3.3 // direct
 	gorm.io/gorm v1.23.5 // direct
 )
