@@ -1,7 +1,7 @@
 package helpers
 
 import (
-	"WebApp/interfaces"
+	"ToDoList/interfaces"
 	"os"
 	"regexp"
 

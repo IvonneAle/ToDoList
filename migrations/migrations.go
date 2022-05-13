@@ -1,8 +1,8 @@
 package migrations
 
 import (
-	"WebApp/helpers"
-	"WebApp/interfaces"
+	"ToDoList/helpers"
+	"ToDoList/interfaces"
 )
 
 func createAccounts() {

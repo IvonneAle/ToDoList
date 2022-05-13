@@ -2,15 +2,15 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
+	//"fmt"
 	"io/ioutil"
-	"log"
+
+	//"log"
 	"net/http"
 
-	"WebApp/helpers"
-	"WebApp/users"
-
-	"github.com/gorilla/mux"
+	"ToDoList/helpers"
+	"ToDoList/users"
+	//"github.com/gorilla/mux"
 )
 
 type Login struct {
@@ -28,7 +28,11 @@ type Register struct {
 	Password string
 }
 
-func login(w http.ResponseWriter, r *http.Request) {
+func loginApi(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		http.Error(w, "Method is not supported.", http.StatusNotFound)
+		return
+	}
 	body, err := ioutil.ReadAll(r.Body)
 	helpers.HandleErr(err)
 
@@ -36,6 +40,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 	err = json.Unmarshal(body, &formattedBody)
 	helpers.HandleErr(err)
 	login := users.Login(formattedBody.Username, formattedBody.Password)
+	//fmt.Fprintf(w, formattedBody.Username, formattedBody.Password)
 
 	if login["message"] == "all is fine" {
 		resp := login
@@ -47,7 +52,11 @@ func login(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func register(w http.ResponseWriter, r *http.Request) {
+func registerApi(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		http.Error(w, "Method is not supported.", http.StatusNotFound)
+		return
+	}
 	// Read body
 	body, err := ioutil.ReadAll(r.Body)
 	helpers.HandleErr(err)
@@ -68,10 +77,6 @@ func register(w http.ResponseWriter, r *http.Request) {
 }
 
 func StartApi() {
-	router := mux.NewRouter()
-	router.HandleFunc("/login", login).Methods("POST")
-	router.HandleFunc("/register", register).Methods("POST")
-	fmt.Println("App is working on port :8888")
-	log.Fatal(http.ListenAndServe(":8888", router))
-
+	http.HandleFunc("/loginApi", loginApi)
+	http.HandleFunc("/registerApi", registerApi)
 }

@@ -1,8 +1,8 @@
 package users
 
 import (
-	"WebApp/helpers"
-	"WebApp/interfaces"
+	"ToDoList/helpers"
+	"ToDoList/interfaces"
 	"errors"
 	"time"
 
