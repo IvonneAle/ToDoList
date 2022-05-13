@@ -72,7 +72,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		//resp := login
 		//json.NewEncoder(w).Encode(resp)
 		// http.Redirect(w, r, "/index2.html", http.StatusSeeOther)
-		http.Redirect(w, r, "/index2.html", 303)
+		http.Redirect(w, r, "/index.html", 303)
 		return
 	} else {
 		//resp := ErrResponse{Message: "Wrong username or password"}
